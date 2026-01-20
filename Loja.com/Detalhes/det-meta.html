@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="detalhes-style.css">
+</head>
+
+<body>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <header class="top-bar">
+
+        <!-- Botão VOLTAR -->
+        <button class="nav-btn back-btn" onclick="history.back()">
+        <span class="material-icons">arrow_back</span>
+        </button> 
+        
+        <!-- Botão HOME -->
+        <a href="../index.html" class="nav-btn">
+            <span class="material-icons">home</span>
+        </a>
+
+        <!-- Título central -->
+        <h1 class="page-title">Detalhes do Produto</h1>
+
+        <!-- Ícones da direita -->
+        <div class="right-icons">
+            <a href="../Pesquisa/pesquisa.html" class="nav-btn">
+                <span class="material-icons">search</span>
+            </a>
+
+            <a href="../Cadastro/cadastro.html" class="nav-btn">
+                <span class="material-icons">person_add</span>
+            </a>
+
+            <a href="../Carrinho/carrinho.html" class="nav-btn">
+                <span class="material-icons">shopping_cart</span>
+            </a>
+        </div>
+
+    </header>
+
+    <!-- ===================== CONTEÚDO ===================== -->
+    <div class="container">
+
+        <div class="product-card"
+            data-id="014"
+            data-name="A Metamorfose"
+            data-price="22,90"
+            data-image="../assets/images/metamorfose.jpg">
+
+            <!-- Imagem -->
+            <div class="image-box">
+                <img src="../assets/images/metamorfose.jpg" alt="A Metamorfose">
+            </div>
+
+            <!-- Informações -->
+            <div class="info-box">
+                
+                <h2>A Metamorfose</h2>
+                <p class="descricao">Franz Kafka</p>
+                <p class="preco">R$ 22,90</p>
+
+                <p class="descricao">
+                O caixeiro-viajante Gregor acorda metamorfoseado em um enorme inseto e percebe que tudo mudou e não só em sua vida, mas no mundo. Ele, então, acompanha as reações de sua família ao perceberem o estranho ser em que ele se tornou. E, enquanto luta para se manter vivo, reflete sobre o comportamento de seus pais, de sua irmã e sobre a sua nova vida.
+                </p>
+            
+                <h3>Detalhes do Produto</h3>
+                <ul class="detalhes-prod">
+                    <li>Editora: Principis</li>
+                    <li>Data da Publicação: 27 setembro 209</li>
+                    <li>Edição: Integral</li>
+                    <li>Idioma: Português</li>
+                    <li>Número de páginas: 96 páginas</li>
+                </ul>
+
+                <h3>Detalhes da compra</h3>
+                <ul class="detalhes-compra">
+                    <li>Frete Grátis</li>
+                    <li>Entrega entre 15 a 20 dias úteis</li>
+                    <li>Devolução em até 15 dias após o recebimento</li>
+                    <li>Vendido por: Loja.com</li>
+                </ul>
+
+                <!-- Botão -->
+                <button class="add-cart" onclick="addToCart()">Adicionar ao carrinho</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="detalhes.js"></script>
+
+</body>
+</html>

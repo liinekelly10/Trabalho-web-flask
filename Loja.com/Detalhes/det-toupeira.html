@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="detalhes-style.css">
+</head>
+
+<body>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <header class="top-bar">
+
+        <!-- Botão VOLTAR -->
+        <button class="nav-btn back-btn" onclick="history.back()">
+        <span class="material-icons">arrow_back</span>
+        </button> 
+        
+        <!-- Botão HOME -->
+        <a href="../index.html" class="nav-btn">
+            <span class="material-icons">home</span>
+        </a>
+
+        <!-- Título central -->
+        <h1 class="page-title">Detalhes do Produto</h1>
+
+        <!-- Ícones da direita -->
+        <div class="right-icons">
+            <a href="../Pesquisa/pesquisa.html" class="nav-btn">
+                <span class="material-icons">search</span>
+            </a>
+
+            <a href="../Cadastro/cadastro.html" class="nav-btn">
+                <span class="material-icons">person_add</span>
+            </a>
+
+            <a href="../Carrinho/carrinho.html" class="nav-btn">
+                <span class="material-icons">shopping_cart</span>
+            </a>
+        </div>
+
+    </header>
+
+    <!-- ===================== CONTEÚDO ===================== -->
+    <div class="container">
+
+        <div class="product-card"
+            data-id="006"
+            data-name="O menino, a toupeira, a raposa e o cavalo"
+            data-price="71,15"
+            data-image="../assets/images/toupeira.jpg">
+
+            <!-- Imagem -->
+            <div class="image-box">
+                <img src="../assets/images/toupeira.jpg" alt="O menino, a toupeira, a raposa e o cavalo">
+            </div>
+
+            <!-- Informações -->
+            <div class="info-box">
+                
+                <h2>O menino, a toupeira, a raposa e o cavalo</h2>
+                <p class="descricao">Charlie Mackesy</p>
+                <p class="preco">R$ 71,15</p>
+
+                <p class="descricao">
+                Charlie Mackesy oferece inspiração e esperança neste lindo livro, seguindo a história de um menino curioso, uma toupeira gananciosa, uma raposa cautelosa e um cavalo sábio que se encontram em situações às vezes difíceis, compartilhando seus medos e suas descobertas sobre vulnerabilidade, bondade, esperança, amizade e amor.
+                As aventuras e as conversas entre os quatro amigos tem tocado leitores de todas as idades, sendo partilhadas na internet, recriadas em aulas de arte, penduradas nas paredes de hospitais e transformadas em tatuagens.
+                </p>
+
+                <h3>Detalhes do Produto</h3>
+                <ul class="detalhes-prod">
+                    <li>Editora: Sextante</li>
+                    <li>Data da Publicação: 10 dezembro 2020</li>
+                    <li>Edição: 1ª</li>
+                    <li>Idioma: Português</li>
+                    <li>Número de páginas: 128 páginas</li>
+                </ul>
+
+                <h3>Detalhes da compra</h3>
+                <ul class="detalhes-compra">
+                    <li>Frete Grátis</li>
+                    <li>Entrega entre 15 a 20 dias úteis</li>
+                    <li>Devolução em até 15 dias após o recebimento</li>
+                    <li>Vendido por: Loja.com</li>
+                </ul>
+
+                <!-- Botão -->
+                <button class="add-cart" onclick="addToCart()">Adicionar ao carrinho</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="detalhes.js"></script>
+
+</body>
+</html>
