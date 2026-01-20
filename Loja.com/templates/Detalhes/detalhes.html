@@ -23,29 +23,51 @@
 </header>
 
 <div class="container">
-    <div class="product-card">
 
+    <div class="product-card"
+         data-id="{{ produto.id }}"
+         data-name="{{ produto.nome }}"
+         data-price="{{ produto.preco }}"
+         data-image="{{ produto.imagem }}">
+
+        <!-- Imagem -->
         <div class="image-box">
-            <img src="{{ url_for('static', filename='images/' + produto.imagem) }}">
+            <img src="{{ url_for('static', filename='images/' + produto.imagem) }}"
+                 alt="{{ produto.nome }}">
         </div>
 
+        <!-- Informações -->
         <div class="info-box">
+
             <h2>{{ produto.nome }}</h2>
             <p class="descricao">{{ produto.autor }}</p>
             <p class="preco">R$ {{ produto.preco }}</p>
 
-            <p class="descricao">{{ produto.descricao }}</p>
+            <p class="descricao">
+                {{ produto.descricao }}
+            </p>
 
             <h3>Detalhes do Produto</h3>
-            <ul>
-                {% for detalhe in produto.detalhes %}
-                    <li>{{ detalhe }}</li>
+            <ul class="detalhes-prod">
+                {% for item in produto.detalhes %}
+                    <li>{{ item }}</li>
                 {% endfor %}
             </ul>
 
-            <button class="add-cart">Adicionar ao carrinho</button>
+            <h3>Detalhes da compra</h3>
+            <ul class="detalhes-compra">
+                {% for item in produto.detalhes_compra %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+
+            <button class="add-cart">
+                Adicionar ao carrinho
+            </button>
+
         </div>
     </div>
+
 </div>
 
 </body>
