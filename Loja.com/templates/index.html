@@ -3,178 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja - Página Inicial [1]</title>
+    <title>Loja - Página Inicial</title>
 
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- CSS EXTERNO -->
-    <link rel="stylesheet" href="Home/home-style.css">
-    <script src="home.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/home-style.css') }}">
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/home.js') }}" defer></script>
 </head>
 
 <body>
 
-    <!-- HEADER com ícones -->
+<!-- ===================== HEADER ===================== -->
 <header class="top-bar">
 
     <!-- Botão HOME -->
-    <a href="index.html" class="nav-btn">
+    <a href="{{ url_for('index') }}" class="nav-btn">
         <span class="material-icons">home</span>
     </a>
 
-    <!-- Título centralizado -->
+    <!-- Título -->
     <h1 class="page-title">Página Inicial</h1>
 
     <!-- Ícones da direita -->
     <div class="right-icons">
-        <a href="pesquisa.html" class="nav-btn">
+        <a href="#" class="nav-btn">
             <span class="material-icons">search</span>
         </a>
 
-        <a href="../Cadastro/cadastro.html" class="nav-btn">
+        <a href="#" class="nav-btn">
             <span class="material-icons">person_add</span>
         </a>
 
-        <a href="../Carrinho/carrinho.html" class="nav-btn">
+        <a href="{{ url_for('carrinho') }}" class="nav-btn">
             <span class="material-icons">shopping_cart</span>
         </a>
     </div>
 
 </header>
 
+<div class="container">
 
-    <div class="container">
+    <!-- ===================== CATEGORIAS ===================== -->
+    <h2>Categorias</h2>
 
-        <!-- ===================== CATEGORIAS ===================== -->
-        <h2>Categorias</h2>
+    <div class="grid">
 
-        <div class="grid">
-
-            <div class="card">
-                <div class="set-image1"><p>Nacionais</p></div>
-                <div class="set-headline"></div>
-                <div class="set-text"></div><div class="set-text"></div><div class="set-text"></div>
-                
-                <button onclick="location.href='../Produtos/produto1.html'">Ver Produtos</button>
-            </div>
-
-            <div class="card">
-                <div class="set-image2"><p>Infantojuvenil</p></div>
-                <div class="set-headline"></div>
-                <div class="set-text"></div><div class="set-text"></div><div class="set-text"></div>
-
-                <button onclick="location.href='../Produtos/produto2.html'">Ver Produtos</button>
-            </div>
-
-            <div class="card">
-                <div class="set-image3"><p>Terror</p></div>
-                <div class="set-headline"></div>
-                <div class="set-text"></div><div class="set-text"></div><div class="set-text"></div>
-
-                <button onclick="location.href='../Produtos/produto3.html'">Ver Produtos</button>
-            </div>
-
-            <div class="card">
-                <div class="set-image4"><p>Clássicos</p></div>
-                <div class="set-headline"></div>
-                <div class="set-text"></div><div class="set-text"></div><div class="set-text"></div>
-
-                <button onclick="location.href='../Produtos/produto4.html'">Ver Produtos</button>
-            </div>
-
-        </div>
-<!-- ===================== PRODUTOS MAIS COMPRADOS ===================== -->
-<h2>Top 5 Mais Comprados</h2>
-
-<div class="top5-container">
-
-    <div class="card-top5">
-        <div class="image-left">
-            <img src="../assets/images/vilarejo.jpg" alt="">
+        <div class="card">
+            <div class="set-image1"><p>Nacionais</p></div>
+            <a href="{{ url_for('categoria', nome='livros-nacionais') }}" class="btn-link">
+                <button>Ver Produtos</button>
+            </a>
         </div>
 
-        <div class="info-right">
-            <h3>O Vilarejo</h3>
-            <p>Raphael Montes</p>
-
-            <div class="ribbon-wrapper-5">
-                <div class="ribbon-5">Top 1</div>
-            </div>
-
-            <button onclick="location.href='../Detalhes/det-vilarejo.html'">Ver detalhes</button>
+        <div class="card">
+            <div class="set-image2"><p>Infantojuvenil</p></div>
+            <a href="{{ url_for('categoria', nome='infantojuvenil') }}" class="btn-link">
+                <button>Ver Produtos</button>
+            </a>
         </div>
+
+        <div class="card">
+            <div class="set-image3"><p>Terror</p></div>
+            <a href="{{ url_for('categoria', nome='terror') }}" class="btn-link">
+                <button>Ver Produtos</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="set-image4"><p>Clássicos</p></div>
+            <a href="{{ url_for('categoria', nome='classicos') }}" class="btn-link">
+                <button>Ver Produtos</button>
+            </a>
+        </div>
+
     </div>
 
-    <div class="card-top5">
-        <div class="image-left">
-            <img src="../assets/images/bomdia.jpg" alt="">
-        </div>
+    <!-- ===================== TOP 5 ===================== -->
+    <h2>Top 5 Mais Comprados</h2>
 
-        <div class="info-right">
-            <h3>Bom dia, Verônica</h3>
-            <p>Raphael Montes e Ilana Casoy</p>
+    <div class="top5-container">
 
-            <div class="ribbon-wrapper-5">
-                <div class="ribbon-5">Top 2</div>
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/vilarejo.jpg') }}" alt="O Vilarejo">
             </div>
-
-            <button onclick="location.href='../Detalhes/det-veronica.html'">Ver detalhes</button>
-        </div>
-    </div>
-
-    <div class="card-top5">
-        <div class="image-left">
-            <img src="../assets/images/crime-castigo.jpg" alt="">
-        </div>
-
-        <div class="info-right">
-            <h3>Crime e Castigo</h3>
-            <p>Fiódor Dostoiévski</p>
-
-            <div class="ribbon-wrapper-5">
-                <div class="ribbon-5">Top 3</div>
+            <div class="info-right">
+                <h3>O Vilarejo</h3>
+                <p>Raphael Montes</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 1</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=3) }}">
+                    <button>Ver detalhes</button>
+                </a>
             </div>
-
-            <button onclick="location.href='../Detalhes/det-crime.html'">Ver detalhes</button>
-        </div>
-    </div>
-
-    <div class="card-top5">
-        <div class="image-left">
-            <img src="../assets/images/oprincipe.jpg" alt="">
         </div>
 
-        <div class="info-right">
-            <h3>O pequeno princípe</h3>
-            <p>Antoine de Saint-Exupéry</p>
-
-            <div class="ribbon-wrapper-5">
-                <div class="ribbon-5">Top 4</div>
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/bomdia.jpg') }}" alt="Bom dia, Verônica">
             </div>
-
-            <button onclick="location.href='../Detalhes/det-principe.html'">Ver detalhes</button>
-        </div>
-    </div>
-
-    <div class="card-top5">
-        <div class="image-left">
-            <img src="../assets/images/casmurro.jpg" alt="">
-        </div>
-
-        <div class="info-right">
-            <h3>Dom Casmurro</h3>
-            <p>Machado de Assis</p>
-
-            <div class="ribbon-wrapper-5">
-                <div class="ribbon-5">Top 5</div>
+            <div class="info-right">
+                <h3>Bom dia, Verônica</h3>
+                <p>Raphael Montes e Ilana Casoy</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 2</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=4) }}">
+                    <button>Ver detalhes</button>
+                </a>
             </div>
-
-            <button onclick="location.href='../Detalhes/det-casmurro.html'">Ver detalhes</button>
         </div>
+
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/crime-castigo.jpg') }}" alt="Crime e Castigo">
+            </div>
+            <div class="info-right">
+                <h3>Crime e Castigo</h3>
+                <p>Fiódor Dostoiévski</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 3</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=5) }}">
+                    <button>Ver detalhes</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/oprincipe.jpg') }}" alt="O Pequeno Príncipe">
+            </div>
+            <div class="info-right">
+                <h3>O Pequeno Príncipe</h3>
+                <p>Antoine de Saint-Exupéry</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 4</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=6) }}">
+                    <button>Ver detalhes</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/casmurro.jpg') }}" alt="Dom Casmurro">
+            </div>
+            <div class="info-right">
+                <h3>Dom Casmurro</h3>
+                <p>Machado de Assis</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 5</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=1) }}">
+                    <button>Ver detalhes</button>
+                </a>
+            </div>
+        </div>
+
     </div>
 
 </div>
-    </div>
 </body>
 </html>
