@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ produto.nome }}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/detalhes-style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<header class="top-bar">
+    <button class="nav-btn back-btn" onclick="history.back()">
+        <span class="material-icons">arrow_back</span>
+    </button>
+
+    <a href="{{ url_for('index') }}" class="nav-btn">
+        <span class="material-icons">home</span>
+    </a>
+
+    <h1 class="page-title">Detalhes do Produto</h1>
+</header>
+
+<div class="container">
+    <div class="product-card">
+
+        <div class="image-box">
+            <img src="{{ url_for('static', filename='images/' + produto.imagem) }}">
+        </div>
+
+        <div class="info-box">
+            <h2>{{ produto.nome }}</h2>
+            <p class="descricao">{{ produto.autor }}</p>
+            <p class="preco">R$ {{ produto.preco }}</p>
+
+            <p class="descricao">{{ produto.descricao }}</p>
+
+            <h3>Detalhes do Produto</h3>
+            <ul>
+                {% for detalhe in produto.detalhes %}
+                    <li>{{ detalhe }}</li>
+                {% endfor %}
+            </ul>
+
+            <button class="add-cart">Adicionar ao carrinho</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
