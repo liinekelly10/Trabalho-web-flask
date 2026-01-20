@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja - Página Inicial</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/home-style.css') }}">
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/home.js') }}" defer></script>
+</head>
+
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="top-bar">
+
+    <!-- Botão HOME -->
+    <a href="{{ url_for('index') }}" class="nav-btn">
+        <span class="material-icons">home</span>
+    </a>
+
+    <!-- Título -->
+    <h1 class="page-title">Página Inicial</h1>
+
+    <!-- Ícones da direita -->
+    <div class="right-icons">
+        <a href="#" class="nav-btn">
+            <span class="material-icons">search</span>
+        </a>
+
+        <a href="{{ url_for('cadastro') }}" class="nav-btn">
+        <span class="material-icons">person_add</span>
+        </a>
+
+        <a href="{{ url_for('carrinho') }}" class="nav-btn">
+            <span class="material-icons">shopping_cart</span>
+        </a>
+    </div>
+
+</header>
+
+<div class="container">
+
+    <!-- ===================== CATEGORIAS ===================== -->
+    <h2>Categorias</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="set-image1"><p>Nacionais</p></div>
+            <a href="{{ url_for('categoria', nome='livros-nacionais') }}" class="btn-link">
+                <button>Ver Produtos</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="set-image2"><p>Infantojuvenil</p></div>
+            <a href="{{ url_for('categoria', nome='infantojuvenil') }}" class="btn-link">
+                <button>Ver Produtos</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="set-image3"><p>Terror</p></div>
+            <a href="{{ url_for('categoria', nome='terror') }}" class="btn-link">
+                <button>Ver Produtos</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="set-image4"><p>Clássicos</p></div>
+            <a href="{{ url_for('categoria', nome='classicos') }}" class="btn-link">
+                <button>Ver Produtos</button>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- ===================== TOP 5 ===================== -->
+    <h2>Top 5 Mais Comprados</h2>
+
+    <div class="top5-container">
+
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/vilarejo.jpg') }}" alt="O Vilarejo">
+            </div>
+            <div class="info-right">
+                <h3>O Vilarejo</h3>
+                <p>Raphael Montes</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 1</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=11) }}">
+                    <button>Ver detalhes</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/bomdia.jpg') }}" alt="Bom dia, Verônica">
+            </div>
+            <div class="info-right">
+                <h3>Bom dia, Verônica</h3>
+                <p>Raphael Montes e Ilana Casoy</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 2</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=3) }}">
+                    <button>Ver detalhes</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/crime-castigo.jpg') }}" alt="Crime e Castigo">
+            </div>
+            <div class="info-right">
+                <h3>Crime e Castigo</h3>
+                <p>Fiódor Dostoiévski</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 3</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=13) }}">
+                    <button>Ver detalhes</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/oprincipe.jpg') }}" alt="O Pequeno Príncipe">
+            </div>
+            <div class="info-right">
+                <h3>O Pequeno Príncipe</h3>
+                <p>Antoine de Saint-Exupéry</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 4</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=7) }}">
+                    <button>Ver detalhes</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-top5">
+            <div class="image-left">
+                <img src="{{ url_for('static', filename='images/casmurro.jpg') }}" alt="Dom Casmurro">
+            </div>
+            <div class="info-right">
+                <h3>Dom Casmurro</h3>
+                <p>Machado de Assis</p>
+                <div class="ribbon-wrapper-5"><div class="ribbon-5">Top 5</div></div>
+                <a href="{{ url_for('detalhe_produto', produto_id=15) }}">
+                    <button>Ver detalhes</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

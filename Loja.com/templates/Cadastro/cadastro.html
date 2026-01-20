@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cad-style.css') }}">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  
+  <script src="../Cadastro/js-cad.js"></script>
+
+</head>
+<body>
+  <!-- Fundo animado -->
+<div class="background-animation"></div>
+<div class="particles"></div>
+
+<!-- multistep form -->
+<form id="msform" action="../Login/login.html" method="get">
+  <!-- progressbar -->
+  <ul id="progressbar">
+    <li class="active">Configuração da Conta</li>
+    <li>Endereço</li>
+    <li>Informações Pessoais</li>
+  </ul>
+  <!-- fieldsets -->
+  <fieldset>
+    <h2 class="fs-title">Crie Sua Conta</h2>
+    <h3 class="fs-subtitle">Este é o passo 1</h3>
+    <input type="text" name="user" placeholder="Usuário" />
+    <input type="text" name="email" placeholder="Email" />
+    <input type="password" name="pass" placeholder="Senha" />
+    <input type="password" name="cpass" placeholder="Confirmação de Senha" />
+    
+    <input type="button" class="btn-voltar-home action-button" value="Voltar">
+    <input type="button" name="next" class="next action-button" value="Próximo" />
+  </fieldset>
+  <fieldset>
+    <h2 class="fs-title">Endereço</h2>
+    <h3 class="fs-subtitle">Este é o passo 2</h3>
+    <select name="UF" id="UF">
+    <option value="">Selecione o Estado</option>
+    <option value="AC">Acre (AC)</option>
+    <option value="AL">Alagoas (AL)</option>
+    <option value="AP">Amapá (AP)</option>
+    <option value="AM">Amazonas (AM)</option>
+    <option value="BA">Bahia (BA)</option>
+    <option value="CE">Ceará (CE)</option>
+    <option value="ES">Espírito Santo (ES)</option>
+    <option value="GO">Goiás (GO)</option>
+    <option value="MA">Maranhão (MA)</option>
+    <option value="MT">Mato Grosso (MT)</option>
+    <option value="MS">Mato Grosso do Sul (MS)</option>
+    <option value="MG">Minas Gerais (MG)</option>
+    <option value="PA">Pará (PA)</option>
+    <option value="PB">Paraíba (PB)</option>
+    <option value="PR">Paraná (PR)</option>
+    <option value="PE">Pernambuco (PE)</option>
+    <option value="PI">Piauí (PI)</option>
+    <option value="RJ">Rio de Janeiro (RJ)</option>
+    <option value="RN">Rio Grande do Norte (RN)</option>
+    <option value="RS">Rio Grande do Sul (RS)</option>
+    <option value="RO">Rondônia (RO)</option>
+    <option value="RR">Roraima (RR)</option>
+    <option value="SC">Santa Catarina (SC)</option>
+    <option value="SP">São Paulo (SP)</option>
+    <option value="SE">Sergipe (SE)</option>
+    <option value="TO">Tocantins (TO)</option> </select><br>
+
+    <input type="text" name="cidade" placeholder="Cidade" />
+    <input type="text" name="cep" id="cep" placeholder="CEP"
+       oninput="mascaraCEP(this)" maxlength="9">
+    <textarea name="endereco" placeholder="Endereço"cols="40" rows="4" maxlength="200"></textarea>
+    <input type="button" name="previous" class="previous action-button" value="Voltar" />
+    <input type="button" name="next" class="next action-button" value="Próximo" />
+    </fieldset>
+  
+    <fieldset>
+    <h2 class="fs-title">Informações Pessoais</h2>
+    <h3 class="fs-subtitle">Este é o passo 3</h3>
+    <input type="text" name="cpf" id="cpf" placeholder="CPF"
+       maxlength="14"
+       inputmode="numeric">
+    <input type="text" name="Nome_C" placeholder="Nome Completo" />
+    
+    <input type="text" name="phone" id="phone" placeholder="Telefone" 
+       oninput="mascaraTelefone(this)" maxlength="15" />
+
+    <input type="button" name="previous" class="previous action-button" value="Voltar" />
+    <button type="submit" class="submit action-button">Enviar</button>
+
+  </fieldset>
+</form>
+  
+</body>
+</html>

@@ -1,0 +1,429 @@
+/* ------------------------- */
+/*   ESTILO DA PÁGINA GERAL  */
+/* ------------------------- */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #ffffff, #f0f0ff);
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: white;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.icon-btn:hover {
+    transform: scale(1.08);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin: 30px 0 20px;
+    color: #4b1db4;
+}
+
+/* ------------------------- */
+/*   GRID DE CARDS           */
+/* ------------------------- */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+/* ------------------------- */
+/*        CARD BASE          */
+/* ------------------------- */
+
+.card {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+}
+
+.set-image1 {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, #3bdd1a, #504dff);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.set-image2 {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, #e992ec, #3fb4c4);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.set-image3 {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, #000000, #851d1d);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.set-image4 {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, #9e892e, #d5d5db);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.set-headline {
+    height: 20px;
+    width: 60%;
+    background: #d7d7ff;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.set-text {
+    width: 100%;
+    height: 12px;
+    border-radius: 5px;
+    margin: 6px 0;
+    background: linear-gradient(to right, #e4e4ff, #ffffff);
+}
+
+/* ------------------------- */
+/*         RIBBONS           */
+/* ------------------------- */
+
+.ribbon-wrapper-1,
+.ribbon-wrapper-2,
+.ribbon-wrapper-3,
+.ribbon-wrapper-4,
+.ribbon-wrapper-5,
+.ribbon-wrapper-6,
+.ribbon-wrapper-7,
+.ribbon-wrapper-8,
+.ribbon-wrapper-9 {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+.ribbon-1,
+.ribbon-2,
+.ribbon-3,
+.ribbon-4,
+.ribbon-5,
+.ribbon-6,
+.ribbon-7,
+.ribbon-8,
+.ribbon-9 {
+    font-size: 12px;
+    padding: 6px 40px;
+    color: #fff;
+    font-weight: bold;
+    transform: rotate(45deg);
+    position: relative;
+}
+
+.ribbon-1 { background: #6a00ff; }
+.ribbon-2 { background: #9d4dff; }
+.ribbon-3 { background: #ff00a8; }
+.ribbon-4 { background: linear-gradient(135deg, #6a00ff, #ff00a8); }
+.ribbon-5 { background: linear-gradient(135deg, #6a00ff, #00d0ff); }
+.ribbon-6 { background: #00c2c7; }
+.ribbon-7 { background: #ff7b00; }
+.ribbon-8 { background: repeating-linear-gradient(45deg, #6a00ff, #6a00ff 10px, #ffffff 10px, #ffffff 20px); }
+.ribbon-9 { background: linear-gradient(135deg, #ff006a, #6a00ff); }
+
+.ribbon-1:before,
+.ribbon-2:before,
+.ribbon-3:before,
+.ribbon-4:before,
+.ribbon-5:before,
+.ribbon-6:before,
+.ribbon-7:before,
+.ribbon-8:before,
+.ribbon-9:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    height: 8px;
+    background: rgba(0,0,0,0.2);
+    filter: blur(3px);
+}
+
+/* ------------------------- */
+/*        BOTÃO              */
+/* ------------------------- */
+
+.card button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: #6a00ff;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card button:hover {
+    background: #5500d4;
+}
+
+/* ========================= */
+/*     NAVBAR / TOP BAR     */
+/* ========================= */
+
+.top-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #6a00ff;
+    padding: 12px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.page-title {
+    flex: 1;
+    text-align: auto;
+    color: #fff;
+    font-size: 20px;
+    margin: 0;
+    pointer-events: none;
+}
+
+.nav-btn {
+    text-decoration: none;
+    background: #5500d4;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn .material-icons {
+    color: #fff;
+    font-size: 24px;
+}
+
+.right-icons {
+    margin-right: 60px;
+    display: flex;
+    gap: 10px;
+}
+
+body, html {
+    overflow-x: hidden;
+}
+
+.top-bar {
+    padding: 10px 12px;
+    gap: 8px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+}
+
+.nav-btn .material-icons {
+    font-size: 22px;
+}
+
+.page-title {
+    font-size: 22px;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+
+.right-icons {
+    display: flex;
+    gap: 8px;
+}
+
+@media (max-width: 430px) {
+
+    .top-bar {
+        padding: 8px 10px;
+    }
+
+    .page-title {
+        font-size: 16px;
+    }
+
+    .nav-btn {
+        width: 36px;
+        height: 36px;
+        padding: 5px;
+    }
+
+    .nav-btn .material-icons {
+        font-size: 20px;
+    }
+}
+
+/* =============================== */
+/*  ESTILO EXCLUSIVO PARA TOP 5    */
+/* =============================== */
+
+.top5-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.card-top5 {
+    display: flex;
+    background: #fff;
+    border-radius: 14px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    gap: 15px;
+    align-items: center;
+    position: relative;
+}
+
+/* ------------------------------ */
+/*    AJUSTE DE IMAGEM PERFEITO   */
+/* ------------------------------ */
+
+.card-top5 .image-left {
+    width: 120px;
+    height: 150px;      /* altura ideal para capas */
+    background: #e8e8e8;
+    border-radius: 12px;
+    overflow: hidden;    /* PARA CORTAR EXCESSO */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-top5 .image-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* MANTÉM PROPORÇÃO PERFEITA */
+    border-radius: 12px;
+}
+
+.card-top5 .info-right {
+    flex: 1;
+}
+
+.card-top5 h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-top5 p {
+    margin: 4px 0 12px;
+    font-size: 14px;
+    color: #444;
+}
+
+.card-top5 button {
+    background: #6a00ff;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.card-top5 button:hover {
+    background: #5500d4;
+}
+
+/* Ajuste do selo (ribbon) */
+.card-top5 .ribbon-wrapper-5,
+.card-top5 .ribbon-wrapper-6,
+.card-top5 .ribbon-wrapper-7,
+.card-top5 .ribbon-wrapper-8,
+.card-top5 .ribbon-wrapper-9 {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 500px) {
+    .card-top5 {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .card-top5 .image-left {
+        width: 100%;
+        height: 200px;
+    }
+
+    .card-top5 .info-right {
+        width: 100%;
+    }
+}
