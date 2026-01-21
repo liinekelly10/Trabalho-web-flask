@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Animado</title>
+  <title>Login</title>
 
-  <link rel="stylesheet" href="login-style.css">
+    <!-- CSS -->
+  <link rel="stylesheet"href="{{ url_for('static', filename='css/login-style.css') }}">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -24,24 +25,43 @@
   <h2 class="login-title">Bem-vindo</h2>
   <p class="login-subtitle">Entre na sua conta</p>
 
-  <form action="../index.html">
-    <input type="text" name="user" placeholder="Usuário" required>
+  <!-- FORMULÁRIO -->
+  <form id="loginForm" method="POST" action="{{ url_for('login') }}">
 
+    <!-- EMAIL -->
+    <input 
+      type="email" 
+      id="email" 
+      name="email" 
+      placeholder="E-mail"
+    >
+    <small class="error-message" id="emailError"></small>
+
+    <!-- SENHA -->
     <div class="password-box">
-      <input type="password" id="password" placeholder="Senha" required>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        placeholder="Senha"
+      >
       <i class="fa-solid fa-eye" id="togglePassword"></i>
     </div>
+    <small class="error-message" id="passwordError"></small>
 
+    <!-- BOTÃO -->
     <button type="submit">Entrar</button>
 
+    <!-- LINKS -->
     <div class="extra-links">
       <p><a href="#">Esqueceu a senha?</a></p>
-      <p>Não tem conta? <a href="../Cadastro/cadastro.html">Cadastre-se</a></p>
+      <p>Não tem conta? <a href="{{ url_for('cadastro') }}">Cadastre-se</a></p>
     </div>
+
   </form>
 </div>
 
-<script src="js-log.js"></script>
+<script src="{{ url_for('static', filename='js/js-log.js') }}"></script>
 
 </body>
 </html>

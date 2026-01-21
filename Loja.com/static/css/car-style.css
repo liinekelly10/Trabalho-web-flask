@@ -162,3 +162,142 @@ body {
         font-size: 16px;
     }
 }
+/* Toast container */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Toast */
+.toast {
+    min-width: 250px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+}
+
+/* Tipos */
+.toast.success {
+    background-color: #4CAF50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
+/* Animações */
+@keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateX(100%); }
+}
+
+/* ========================= */
+/*     NAVBAR / TOP BAR     */
+/* ========================= */
+
+.top-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #6a00ff;
+    padding: 12px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.page-title {
+    flex: 1;
+    text-align: auto;
+    color: #fff;
+    font-size: 20px;
+    margin: 0;
+    pointer-events: none;
+}
+
+.nav-btn {
+    text-decoration: none;
+    background: #5500d4;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn .material-icons {
+    color: #fff;
+    font-size: 24px;
+}
+
+.right-icons {
+    margin-right: 60px;
+    display: flex;
+    gap: 10px;
+}
+
+body, html {
+    overflow-x: hidden;
+}
+
+.top-bar {
+    padding: 10px 12px;
+    gap: 8px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+}
+
+.nav-btn .material-icons {
+    font-size: 22px;
+}
+
+.page-title {
+    font-size: 22px;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+
+.right-icons {
+    display: flex;
+    gap: 8px;
+}
+
+@media (max-width: 430px) {
+
+    .top-bar {
+        padding: 8px 10px;
+    }
+
+    .page-title {
+        font-size: 16px;
+    }
+
+    .nav-btn {
+        width: 36px;
+        height: 36px;
+        padding: 5px;
+    }
+
+    .nav-btn .material-icons {
+        font-size: 20px;
+    }
+}

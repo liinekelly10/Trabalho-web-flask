@@ -10,17 +10,8 @@
 </head>
 <body>
 
-<header class="top-bar">
-    <button class="nav-btn back-btn" onclick="history.back()">
-        <span class="material-icons">arrow_back</span>
-    </button>
-
-    <a href="{{ url_for('index') }}" class="nav-btn">
-        <span class="material-icons">home</span>
-    </a>
-
-    <h1 class="page-title">Detalhes do Produto</h1>
-</header>
+    {% set page_title = "Carrinho de Compras" %}
+    {% include 'partials/header.html' %}
 
 <div class="container">
 

@@ -1,0 +1,27 @@
+<!-- templates/partials/header.html -->
+<header class="top-bar">
+
+    <!-- Botão HOME -->
+    <a href="{{ url_for('index') }}" class="nav-btn">
+        <span class="material-icons">home</span>
+    </a>
+
+    <!-- Título da página (dinâmico) -->
+    <h1 class="page-title">{{ page_title }}</h1>
+
+    <!-- Ícones da direita -->
+    <div class="right-icons">
+        <a href="#" class="nav-btn">
+            <span class="material-icons">search</span>
+        </a>
+
+        <a href="{{ url_for('cadastro') }}" class="nav-btn">
+            <span class="material-icons">person_add</span>
+        </a>
+
+        <a href="{{ url_for('carrinho') }}" class="nav-btn">
+            <span class="material-icons">shopping_cart</span>
+        </a>
+    </div>
+
+</header>

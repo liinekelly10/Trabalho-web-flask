@@ -1,7 +1,20 @@
-from flask import Flask, render_template, session, redirect, url_for
+from flask import Flask, render_template, session, redirect, url_for, request, jsonify
+from models import db, Usuario
 
 app = Flask(__name__)
 app.secret_key = "chave-secreta-loja"
+
+# ---------------------------
+# CONFIG BANCO
+# ---------------------------
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///loja.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
 # ---------------------------
 # HOME
 # ---------------------------
@@ -9,14 +22,131 @@ app.secret_key = "chave-secreta-loja"
 @app.route("/")
 def index():
     return render_template("index.html")
-
 # ---------------------------
 # CADASTRO
 # ---------------------------
-
-@app.route("/cadastro")
+@app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
+    if request.method == "POST":
+        # Verifica se veio JSON
+        if request.is_json:
+            dados = request.get_json()
+            nome = dados.get("nome")
+            username = dados.get("username")  # <- pega o username
+            email = dados.get("email")
+            senha = dados.get("senha")
+        else:
+            # Formulário tradicional
+            nome = request.form.get("Nome_C")
+            email = request.form.get("email")
+            senha = request.form.get("pass")
+
+        # verifica se email já existe
+        if Usuario.query.filter_by(email=email).first():
+            if request.is_json:
+                return jsonify({"erro": "E-mail já cadastrado"}), 400
+            return render_template(
+                "Cadastro/cadastro.html",
+                erro="E-mail já cadastrado"
+            )
+
+        usuario = Usuario(nome=nome, email=email)
+        usuario.set_senha(senha)
+
+        db.session.add(usuario)
+        db.session.commit()
+
+        if request.is_json:
+            return jsonify({"sucesso": "Usuário cadastrado"}), 201
+
+        return redirect(url_for("login"))
+
     return render_template("Cadastro/cadastro.html")
+
+
+@app.route("/api/cadastro", methods=["POST"])
+def api_cadastro():
+    dados = request.get_json()
+
+    if not dados:
+        return jsonify({"erro": "Nenhum dado enviado"}), 400
+
+    nome = dados.get("nome")
+    username = dados.get("username")
+    email = dados.get("email")
+    senha = dados.get("senha")
+
+    if not all([nome, username, email, senha]):
+        return jsonify({"erro": "Todos os campos são obrigatórios"}), 400
+
+    if Usuario.query.filter_by(email=email).first():
+        return jsonify({"erro": "E-mail já cadastrado"}), 400
+
+    if Usuario.query.filter_by(username=username).first():
+        return jsonify({"erro": "Username já cadastrado"}), 400
+
+    usuario = Usuario(nome=nome, username=username, email=email)
+    usuario.set_senha(senha)
+
+    db.session.add(usuario)
+    db.session.commit()
+
+    return jsonify({"sucesso": "Usuário cadastrado", "usuario": usuario.to_dict()}), 201
+
+
+# ---------------------------
+# LOGIN
+# ---------------------------
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        senha = request.form.get("password")
+
+        usuario = Usuario.query.filter_by(email=email).first()
+
+        if usuario and usuario.verificar_senha(senha):
+            session["usuario_id"] = usuario.id
+            session["usuario_nome"] = usuario.nome
+            return redirect(url_for("carrinho"))
+
+        return render_template(
+            "Login/login.html",
+            erro="E-mail ou senha inválidos"
+        )
+
+    return render_template("Login/login.html")
+
+@app.route("/api/login", methods=["POST"])
+def api_login():
+    dados = request.get_json()
+    if not dados:
+        return jsonify({"erro": "Nenhum dado enviado"}), 400
+
+    email = dados.get("email")
+    senha = dados.get("senha")
+
+    if not all([email, senha]):
+        return jsonify({"erro": "Email e senha são obrigatórios"}), 400
+
+    usuario = Usuario.query.filter_by(email=email).first()
+
+    if not usuario or not usuario.verificar_senha(senha):
+        return jsonify({"erro": "E-mail ou senha inválidos"}), 401
+
+    # Podemos usar um token fake ou JWT (simplificado aqui)
+    session["usuario_id"] = usuario.id
+
+    return jsonify({"sucesso": "Login realizado", "usuario": usuario.to_dict()}), 200
+
+
+# ---------------------------
+# LOGOUT
+# ---------------------------
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
 
 # ---------------------------
 # CATEGORIA
@@ -32,6 +162,33 @@ def categoria(nome):
             "produtos": lista
         }
     )
+
+@app.route("/api/categorias/<string:nome>", methods=["GET"])
+def api_categoria(nome):
+    lista = [p for p in produtos if p["categoria"] == nome]
+    return jsonify({"categoria": nome, "produtos": lista}), 200
+
+@app.route("/api/produtos/categoria/<string:categoria>", methods=["GET"])
+def api_produtos_por_categoria(categoria):
+    # Filtra produtos pela categoria (comparando string)
+    produtos_filtrados = [p for p in produtos if p.get("categoria") == categoria]
+
+    if not produtos_filtrados:
+        return jsonify({"erro": f"Nenhum produto encontrado para a categoria '{categoria}'"}), 404
+
+    # Retorna apenas os campos essenciais
+    resultado = []
+    for p in produtos_filtrados:
+        resultado.append({
+            "id": p["id"],
+            "nome": p["nome"],
+            "preco": p["preco"],
+            "imagem": p["imagem"],
+            "categoria": p["categoria"]
+        })
+
+    return jsonify(resultado), 200
+
 
 # ---------------------------
 # DETALHE DO PRODUTO
@@ -49,6 +206,47 @@ def detalhe_produto(produto_id):
         produto=produto
     )
 
+@app.route("/api/produtos", methods=["GET"])
+def api_produtos():
+    return jsonify(produtos), 200
+
+@app.route("/api/produtos/<int:produto_id>", methods=["GET"])
+def api_produto(produto_id):
+    produto = next((p for p in produtos if p["id"] == produto_id), None)
+    if not produto:
+        return jsonify({"erro": "Produto não encontrado"}), 404
+
+    # Reorganiza os campos: coloca 'id' primeiro
+    produto_reordenado = {
+        "id": produto["id"],
+        "nome": produto["nome"],
+        "autor": produto["autor"],
+        "categoria": produto["categoria"],
+        "preco": produto["preco"],
+        "imagem": produto["imagem"],
+        "ribbon": produto.get("ribbon"),
+        "descricao": produto["descricao"],
+        "detalhes": produto["detalhes"],
+        "detalhes_compra": produto["detalhes_compra"]
+    }
+
+    return jsonify(produto_reordenado), 200
+
+@app.route("/api/usuarios", methods=["GET"])
+def api_usuarios():
+    usuarios = Usuario.query.all()
+    lista = []
+
+    for u in usuarios:
+        lista.append({
+            "id": u.id,
+            "nome": u.nome,
+            "username": getattr(u, "username", None),  # caso tenha username
+            "email": u.email
+        })
+
+    return jsonify(lista), 200
+
 # ---------------------------
 # CARRINHO
 # ---------------------------
@@ -63,6 +261,38 @@ def carrinho():
         cart=cart,
         total=total
     )
+
+@app.route("/api/carrinho", methods=["GET", "POST"])
+def api_carrinho():
+    if request.method == "POST":
+        dados = request.get_json()
+        produto_id = dados.get("produto_id")
+        qty = dados.get("qty", 1)
+        
+        produto = next((p for p in produtos if p["id"] == produto_id), None)
+        if not produto:
+            return jsonify({"erro": "Produto não encontrado"}), 404
+
+        cart = session.get("cart", [])
+        for item in cart:
+            if item["id"] == produto_id:
+                item["qty"] += qty
+                session["cart"] = cart
+                return jsonify(cart), 200
+
+        cart.append({
+            "id": produto["id"],
+            "nome": produto["nome"],
+            "preco": float(produto["preco"].replace(",", ".")),
+            "imagem": produto["imagem"],
+            "qty": qty
+        })
+        session["cart"] = cart
+        return jsonify(cart), 201
+
+    # GET retorna o carrinho
+    return jsonify(session.get("cart", [])), 200
+
 
 # ---------------------------
 # ADICIONAR AO CARRINHO
@@ -134,6 +364,19 @@ def diminuir_item(produto_id):
 def limpar_carrinho():
     session.pop("cart", None)
     return redirect(url_for("carrinho"))
+
+@app.route("/api/carrinho/finalizar", methods=["POST"])
+def finalizar_compra():
+    cart = session.get("cart", [])
+
+    if not cart or len(cart) == 0:
+        return jsonify({"erro": "Carrinho vazio"}), 400
+
+    # Aqui você poderia salvar a compra no banco, gerar pedido, etc.
+    # Por enquanto, vamos apenas limpar o carrinho
+    session.pop("cart", None)
+
+    return jsonify({"sucesso": "Compra realizada com sucesso!"}), 200
 
 produtos = [
     # ===== NACIONAIS =====
