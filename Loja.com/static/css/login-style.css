@@ -169,3 +169,11 @@ button:hover {
 .extra-links a:hover {
     text-decoration: underline;
 }
+
+.error-message {
+  display: block;
+  text-align: left;
+  color: #ff4d4d;
+  font-size: 12px;
+  margin: -8px 0 10px 5px;
+}

@@ -1,7 +1,20 @@
-from flask import Flask, render_template, session, redirect, url_for
+from flask import Flask, render_template, session, redirect, url_for, request, jsonify
+from models import db, Usuario
 
 app = Flask(__name__)
 app.secret_key = "chave-secreta-loja"
+
+# ---------------------------
+# CONFIG BANCO
+# ---------------------------
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///loja.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
 # ---------------------------
 # HOME
 # ---------------------------
@@ -9,14 +22,77 @@ app.secret_key = "chave-secreta-loja"
 @app.route("/")
 def index():
     return render_template("index.html")
-
 # ---------------------------
 # CADASTRO
 # ---------------------------
-
-@app.route("/cadastro")
+@app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
+    if request.method == "POST":
+        # Verifica se veio JSON
+        if request.is_json:
+            dados = request.get_json()
+            nome = dados.get("nome")
+            username = dados.get("username")  # <- pega o username
+            email = dados.get("email")
+            senha = dados.get("senha")
+        else:
+            # Formulário tradicional
+            nome = request.form.get("Nome_C")
+            email = request.form.get("email")
+            senha = request.form.get("pass")
+
+        # verifica se email já existe
+        if Usuario.query.filter_by(email=email).first():
+            if request.is_json:
+                return jsonify({"erro": "E-mail já cadastrado"}), 400
+            return render_template(
+                "Cadastro/cadastro.html",
+                erro="E-mail já cadastrado"
+            )
+
+        usuario = Usuario(nome=nome, email=email)
+        usuario.set_senha(senha)
+
+        db.session.add(usuario)
+        db.session.commit()
+
+        if request.is_json:
+            return jsonify({"sucesso": "Usuário cadastrado"}), 201
+
+        return redirect(url_for("login"))
+
     return render_template("Cadastro/cadastro.html")
+
+# ---------------------------
+# LOGIN
+# ---------------------------
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form.get("email")
+        senha = request.form.get("password")
+
+        usuario = Usuario.query.filter_by(email=email).first()
+
+        if usuario and usuario.verificar_senha(senha):
+            session["usuario_id"] = usuario.id
+            session["usuario_nome"] = usuario.nome
+            return redirect(url_for("carrinho"))
+
+        return render_template(
+            "Login/login.html",
+            erro="E-mail ou senha inválidos"
+        )
+
+    return render_template("Login/login.html")
+
+# ---------------------------
+# LOGOUT
+# ---------------------------
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
 
 # ---------------------------
 # CATEGORIA
