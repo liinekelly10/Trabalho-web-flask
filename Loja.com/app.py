@@ -1,14 +1,26 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, session, redirect, url_for
 
 app = Flask(__name__)
+app.secret_key = "chave-secreta-loja"
+# ---------------------------
+# HOME
+# ---------------------------
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
+# ---------------------------
+# CADASTRO
+# ---------------------------
+
 @app.route("/cadastro")
 def cadastro():
     return render_template("Cadastro/cadastro.html")
+
+# ---------------------------
+# CATEGORIA
+# ---------------------------
 
 @app.route("/categoria/<nome>")
 def categoria(nome):
@@ -20,6 +32,10 @@ def categoria(nome):
             "produtos": lista
         }
     )
+
+# ---------------------------
+# DETALHE DO PRODUTO
+# ---------------------------
 
 @app.route("/produto/<int:produto_id>")
 def detalhe_produto(produto_id):
@@ -33,9 +49,91 @@ def detalhe_produto(produto_id):
         produto=produto
     )
 
+# ---------------------------
+# CARRINHO
+# ---------------------------
 @app.route("/carrinho")
 def carrinho():
-    return render_template("Carrinho/carrinho.html")
+    cart = session.get("cart", [])
+
+    total = sum(item["preco"] * item["qty"] for item in cart)
+
+    return render_template(
+        "Carrinho/carrinho.html",
+        cart=cart,
+        total=total
+    )
+
+# ---------------------------
+# ADICIONAR AO CARRINHO
+# ---------------------------
+@app.route("/add-carrinho/<int:produto_id>", methods=["POST"])
+def add_carrinho(produto_id):
+    produto = next((p for p in produtos if p["id"] == produto_id), None)
+
+    if not produto:
+        return "Produto não encontrado", 404
+
+    cart = session.get("cart", [])
+
+    preco_float = float(produto["preco"].replace(",", "."))
+
+    for item in cart:
+        if item["id"] == produto_id:
+            item["qty"] += 1
+            session["cart"] = cart
+            return redirect(url_for("carrinho"))
+
+    cart.append({
+        "id": produto["id"],
+        "nome": produto["nome"],
+        "preco": preco_float,
+        "imagem": produto["imagem"],
+        "qty": 1
+    })
+
+    session["cart"] = cart
+    return redirect(url_for("carrinho"))
+
+# ---------------------------
+# AUMENTAR ITEM
+# ---------------------------
+@app.route("/carrinho/aumentar/<int:produto_id>")
+def aumentar_item(produto_id):
+    cart = session.get("cart", [])
+
+    for item in cart:
+        if item["id"] == produto_id:
+            item["qty"] += 1
+            break
+
+    session["cart"] = cart
+    return redirect(url_for("carrinho"))
+
+# ---------------------------
+# DIMINUIR ITEM
+# ---------------------------
+@app.route("/carrinho/diminuir/<int:produto_id>")
+def diminuir_item(produto_id):
+    cart = session.get("cart", [])
+
+    for item in cart:
+        if item["id"] == produto_id:
+            item["qty"] -= 1
+            if item["qty"] <= 0:
+                cart.remove(item)
+            break
+
+    session["cart"] = cart
+    return redirect(url_for("carrinho"))
+
+# ---------------------------
+# LIMPAR CARRINHO
+# ---------------------------
+@app.route("/carrinho/limpar")
+def limpar_carrinho():
+    session.pop("cart", None)
+    return redirect(url_for("carrinho"))
 
 produtos = [
     # ===== NACIONAIS =====
