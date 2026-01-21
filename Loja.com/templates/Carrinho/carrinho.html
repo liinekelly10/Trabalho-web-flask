@@ -2,89 +2,82 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Carrinho</title>
+    <title>Carrinho de Compras</title>
 
+    <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- CSS do carrinho -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/car-style.css') }}">
 </head>
 
 <body>
 
-<header class="header">
-    <div id="alertBox" class="alert hidden"></div>
-    <button class="back-btn" onclick="history.back()">
-        <span class="material-icons">arrow_back</span>
-    </button>
-    <h1>Carrinho de Compras</h1>
-</header>
+    <!-- Toast container -->
+    <div id="toastContainer" class="toast-container"></div>
 
-<div class="container">
+    <!-- Header -->
+    {% set page_title = "Carrinho de Compras" %}
+    {% include 'partials/header.html' %}
 
-    {% if cart %}
 
-    <table class="cart-table">
+    <!-- Conteúdo do carrinho -->
+    <div class="container">
 
-        <thead>
-            <tr>
-                <th>Imagem</th>
-                <th>Descrição</th>
-                <th>Qtd</th>
-                <th>Total</th>
-            </tr>
-        </thead>
+        {% if cart %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Descrição</th>
+                    <th>Qtd</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            {% for item in cart %}
-            <tr>
-                <td>
-                    <img src="{{ url_for('static', filename='images/' + item.imagem) }}"
-                         class="cart-img">
-                </td>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td>
+                        <img src="{{ url_for('static', filename='images/' + item.imagem) }}"
+                             class="cart-img">
+                    </td>
+                    <td class="desc">
+                        {{ item.nome }}<br>
+                        <small>R$ {{ "%.2f"|format(item.preco) }}</small>
+                    </td>
+                    <td class="qtd">
+                        <a href="{{ url_for('diminuir_item', produto_id=item.id) }}"
+                           class="qtd-btn">−</a>
 
-                <td class="desc">
-                    {{ item.nome }}<br>
-                    <small>R$ {{ "%.2f"|format(item.preco) }}</small>
-                </td>
+                        <span class="qtd-value">{{ item.qty }}</span>
 
-                <td class="qtd">
-                    <a href="{{ url_for('diminuir_item', produto_id=item.id) }}"
-                    class="qtd-btn">−</a>
+                        <a href="{{ url_for('aumentar_item', produto_id=item.id) }}"
+                           class="qtd-btn">+</a>
+                    </td>
+                    <td class="item-total">
+                        R$ {{ "%.2f"|format(item.preco * item.qty) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-                    <span class="qtd-value">{{ item.qty }}</span>
+        <div class="cart-grand-total">
+            Total: <strong>R$ {{ "%.2f"|format(total) }}</strong>
+        </div>
 
-                    <a href="{{ url_for('aumentar_item', produto_id=item.id) }}"
-                    class="qtd-btn">+</a>
-                </td>
+        <div class="cart-actions">
+            <button id="clearCartBtn" class="clear-cart-btn">Esvaziar Carrinho</button>
+            <button id="finishPurchase" class="finish-btn" type="button">Finalizar Compra</button>
+        </div>
 
-                <td class="item-total">
-                    R$ {{ "%.2f"|format(item.preco * item.qty) }}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-
-    </table>
-
-    <div class="cart-grand-total">
-        Total: <strong>R$ {{ "%.2f"|format(total) }}</strong>
-    </div>
-
-    <div class="cart-actions">
-        <a href="{{ url_for('limpar_carrinho') }}" class="clear-cart-btn">
-            Esvaziar Carrinho
-        </a>
-
-    <button class="finish-btn" id="finishPurchase" type="button">
-        Finalizar Compra
-    </button>
-
-    </div>
-
-    {% else %}
+        {% else %}
         <p class="empty-cart">Seu carrinho está vazio.</p>
-    {% endif %}
+        {% endif %}
 
-</div>
-<script src="{{ url_for('static', filename='js/carrinho.js') }}"></script>
+    </div>
+
+    <!-- JS do carrinho -->
+    <script src="{{ url_for('static', filename='js/car.js') }}"></script>
 </body>
 </html>

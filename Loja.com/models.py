@@ -29,3 +29,4 @@ class Usuario(db.Model):
             "username": self.username,
             "email": self.email
         }
+
